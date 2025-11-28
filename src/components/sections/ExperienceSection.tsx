@@ -5,7 +5,6 @@ import {
   ChevronDown,
   BriefcaseBusiness,
   CalendarDays,
-  X,
 } from "lucide-react";
 
 const dragStyles = {
@@ -66,20 +65,6 @@ export default function ExperienceSection({
                 </>
               )}
             </button>
-            <AnimatePresence>
-              {showDetails && (
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  onClick={() => setShowDetails(false)}
-                  className="p-1 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
-                >
-                  <X size={16} strokeWidth={2.5} />
-                </motion.button>
-              )}
-            </AnimatePresence>
           </div>
         </div>
         <div className="relative h-px bg-linear-to-r from-gray-300 dark:from-gray-600 to-transparent mt-3 mb-4"></div>
@@ -121,8 +106,8 @@ export default function ExperienceSection({
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ 
-                      height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                      opacity: { duration: 0.2, ease: "easeOut" }
+                      height: { duration: 0.5, ease: "easeOut" },
+                      opacity: { duration: 0.4, ease: "easeOut" }
                     }}
                     style={{ overflow: "hidden", willChange: "height, opacity" }}
                   >
@@ -200,8 +185,8 @@ export default function ExperienceSection({
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ 
-                      height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                      opacity: { duration: 0.2, ease: "easeOut" }
+                      height: { duration: 0.5, ease: "easeOut" },
+                      opacity: { duration: 0.4, ease: "easeOut" }
                     }}
                     style={{ overflow: "hidden", willChange: "height, opacity" }}
                   >
@@ -269,8 +254,8 @@ export default function ExperienceSection({
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ 
-                      height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                      opacity: { duration: 0.2, ease: "easeOut" }
+                      height: { duration: 0.5, ease: "easeOut" },
+                      opacity: { duration: 0.4, ease: "easeOut" }
                     }}
                     style={{ overflow: "hidden", willChange: "height, opacity" }}
                   >

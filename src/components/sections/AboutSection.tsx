@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Mail, Phone, Circle, ChevronDown, ChevronUp, Braces, Server, Database, GitBranch, Shield,  Trello, X } from "lucide-react"; 
+import { MapPin, Mail, Phone, Circle, ChevronDown, ChevronUp, Braces, Server, Database, GitBranch, Shield,  Trello,} from "lucide-react"; 
 import me from "../../assets/me.jpg";
 import avatar from "../../assets/avatar.jpg";
 
@@ -146,20 +146,6 @@ export default function AboutSection({
                 </>
               )}
             </button>
-            <AnimatePresence>
-              {showDetails && (
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  onClick={() => setShowDetails(false)}
-                  className="p-1 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
-                >
-                  <X size={16} strokeWidth={2.5} />
-                </motion.button>
-              )}
-            </AnimatePresence>
           </div>
         </div>
         <p className="text-xs md:text-sm font-light leading-relaxed text-gray-600 dark:text-gray-400">
@@ -178,8 +164,8 @@ export default function AboutSection({
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ 
-                height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                opacity: { duration: 0.2, ease: "easeOut" }
+                height: { duration: 0.3, ease: "easeOut" },
+                opacity: { duration: 0.25, ease: "easeOut" }
               }}
               style={{ overflow: "hidden", willChange: "height, opacity" }}
             >
