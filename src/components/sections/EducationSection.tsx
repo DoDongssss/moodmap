@@ -27,12 +27,14 @@ const dragStyles = {
 type EducationSectionProps = {
   activeCard: string;
   isDark: boolean;
+  isMobile: boolean;
   setActiveCard: (value: string) => void;
 };
 
 export default function EducationSection({
   activeCard,
   isDark,
+  isMobile,
   setActiveCard,
 }: EducationSectionProps) {
   const [showDetails, setShowDetails] = useState(false);
@@ -249,9 +251,9 @@ export default function EducationSection({
       {/* Normal Card */}
       {!showDetails && (
         <motion.div
-          drag
-          dragMomentum={false}
-          dragElastic={0.1}
+          drag={!isMobile} 
+          dragMomentum={!isMobile}
+          dragElastic={!isMobile ? 0.1 : 0}
           onDragStart={() => setActiveCard("education")}
           onDragEnd={() => setActiveCard("")}
           style={{ zIndex: activeCard === "education" ? 50 : 10 }}
@@ -266,7 +268,6 @@ export default function EducationSection({
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
           className="h-full w-full md:w-[400px] glass-card overflow-auto"
         >
-          <div className="absolute min-w-[6px] h-[6px] top-2 right-2 rounded-full bg-gray-400 dark:bg-gray-600 z-10"></div>
           {cardContent}
         </motion.div>
       )}
@@ -285,7 +286,6 @@ export default function EducationSection({
             style={{ willChange: "transform, opacity" }}
             className="fixed top-1/2 left-1/2 w-[90vw] md:w-[600px] max-w-[600px] max-h-[90vh] glass-card bg-white dark:bg-gray-900 overflow-auto z-70"
           >
-            <div className="absolute min-w-[6px] h-[6px] top-2 right-2 rounded-full bg-gray-400 dark:bg-gray-600 z-10"></div>
             {cardContent}
           </motion.div>
         )}

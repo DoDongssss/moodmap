@@ -6,6 +6,7 @@ import ThemeToggle from "../ThemeToggle";
 type HeaderSectionProps = {
   activeCard: string;
   isDark: boolean;
+  isMobile: boolean;
   setActiveCard: (card: string) => void;
 };
 
@@ -47,7 +48,7 @@ const SocialIcon = ({
         whileHover={{ scale: 1.15 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
-        <Icon size={18} strokeWidth={2} />
+        <Icon size={17} strokeWidth={2} />
       </motion.div>
 
       <AnimatePresence>
@@ -72,6 +73,7 @@ const SocialIcon = ({
 export default function HeaderSection({
   activeCard,
   isDark,
+  isMobile,
   setActiveCard,
 }: HeaderSectionProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -118,9 +120,9 @@ export default function HeaderSection({
     <>
       {/* Header */}
       <motion.div
-        drag
-        dragMomentum={false}
-        dragElastic={0.1}
+        drag={!isMobile} 
+        dragMomentum={!isMobile}
+        dragElastic={!isMobile ? 0.1 : 0}
         whileHover={{
           background: isDark
             ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
@@ -146,10 +148,25 @@ export default function HeaderSection({
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       >
-        <div className="text-gray-900 dark:text-gray-100">
-          <CodeXml size={20} strokeWidth={4} className="w-5 h-5" />
-        </div>
-        
+        <motion.div
+          className="text-gray-900 flex items-center dark:text-gray-100 font-bold font-modak gap-1"
+        >
+          <motion.h3
+            className="text-sm"
+            animate={{ y: [0, -1.5, 0] }} 
+            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            MoodMap
+          </motion.h3>
+
+          <motion.div
+            animate={{ y: [0, -2, 0], rotate: [0, 5, -5, 0] }} 
+            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <CodeXml size={17} strokeWidth={3} />
+          </motion.div>
+        </motion.div>
+  
         {/* Desktop Social Links - Hidden on mobile */}
         <div className="hidden lg:flex items-center gap-3">
           {socialLinks.map((social, index) => (

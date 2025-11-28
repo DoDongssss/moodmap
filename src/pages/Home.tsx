@@ -8,6 +8,13 @@ import ExperienceSection from "../components/sections/ExperienceSection";
 export default function Home() {
   const [activeCard, setActiveCard] = useState('');
   const [isDark, setIsDark] = useState(false);
+  const [isMobile, setIsMobile] =  useState(window.innerWidth <= 1000);
+
+  // useEffect(() => {
+  //   const handleResize = () => setIsMobile(window.innerWidth < 1000);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   useEffect(() => {
     const checkTheme = () => {
@@ -65,7 +72,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <HeaderSection activeCard={activeCard} setActiveCard={setActiveCard} isDark={isDark} />
+          <HeaderSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard}  />
         </motion.div>
 
         <motion.div
@@ -74,7 +81,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <AboutSection activeCard={activeCard} isDark={isDark} setActiveCard={setActiveCard} />
+          <AboutSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
         </motion.div>
 
         <motion.div
@@ -83,8 +90,8 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <EducationSection activeCard={activeCard} isDark={isDark} setActiveCard={setActiveCard} />
-          <ExperienceSection activeCard={activeCard} isDark={isDark} setActiveCard={setActiveCard} />
+          <EducationSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
+          <ExperienceSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
         </motion.div>
       </div>
     </motion.div>
