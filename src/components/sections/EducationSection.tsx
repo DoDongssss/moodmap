@@ -102,8 +102,8 @@ export default function EducationSection({
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ 
-                  height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                  opacity: { duration: 0.2, ease: "easeOut" }
+                  height: { duration: 0.35, ease: "easeOut" },
+                      opacity: { duration: 0.3, ease: "easeOut" }
                 }}
                 style={{ overflow: "hidden", willChange: "height, opacity" }}
               >
@@ -140,8 +140,8 @@ export default function EducationSection({
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ 
-                  height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                  opacity: { duration: 0.2, ease: "easeOut" }
+                  height: { duration: 0.35, ease: "easeOut" },
+                      opacity: { duration: 0.3, ease: "easeOut" }
                 }}
                 style={{ overflow: "hidden", willChange: "height, opacity" }}
               >
@@ -178,8 +178,8 @@ export default function EducationSection({
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ 
-                  height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                  opacity: { duration: 0.2, ease: "easeOut" }
+                  height: { duration: 0.35, ease: "easeOut" },
+                      opacity: { duration: 0.3, ease: "easeOut" }
                 }}
                 style={{ overflow: "hidden", willChange: "height, opacity" }}
               >
@@ -210,8 +210,8 @@ export default function EducationSection({
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ 
-                  height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                  opacity: { duration: 0.2, ease: "easeOut" }
+                  height: { duration: 0.35, ease: "easeOut" },
+                      opacity: { duration: 0.3, ease: "easeOut" }
                 }}
                 style={{ overflow: "hidden", willChange: "height, opacity" }}
               >
