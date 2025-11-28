@@ -7,12 +7,14 @@ import avatar from "../../assets/avatar.jpg";
 type AboutSectionProps = {
   activeCard: string;
   isDark: boolean;
+  isMobile: boolean;
   setActiveCard: (card: string) => void;
 };
 
 export default function AboutSection({
   activeCard,
   isDark,
+  isMobile,
   setActiveCard,
 }: AboutSectionProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -98,21 +100,23 @@ export default function AboutSection({
               Full Stack Developer
             </span>
           </div>
-          <div className="w-full flex flex-col sm:flex-row gap-2 mt-2 md:mt-0">
-            <button className="flex gap-1 items-center justify-center bg-black dark:bg-white text-white dark:text-black px-3 py-1.5 md:px-2 md:py-1 rounded-sm text-[.65rem] md:text-[.7rem] font-light transition-all duration-300 hover:bg-[#222] dark:hover:bg-gray-200 hover:scale-105 hover:shadow-md">
+          <div className="w-full flex flex-col gap-2 mt-2 justify-center md:justify-normal sm:flex-row md:gap-2">
+            <button className="flex gap-1 items-center justify-center whitespace-nowrap bg-black dark:bg-white text-white dark:text-black px-3 py-1.5 md:px-2 md:py-1 rounded-sm text-[.65rem] md:text-[.7rem] font-light transition-all duration-300 hover:bg-[#222] dark:hover:bg-gray-200 hover:scale-105 hover:shadow-md">
               <span>📄</span>
               <span>Download CV</span>
             </button>
 
-            <button className="flex gap-1 items-center justify-center bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 px-3 py-1.5 md:px-2 md:py-1 rounded-sm text-[.65rem] md:text-[.7rem] font-light transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white hover:scale-105 hover:shadow-md">
-              <Mail size={10} className="text-gray-800 dark:text-gray-200" />
-              <span>Send Email</span>
-            </button>
+            <div className="flex gap-2">
+              <button className="flex flex-1 md:flex-none gap-1 items-center justify-center whitespace-nowrap bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 px-3 py-1.5 md:px-2 md:py-1 rounded-sm text-[.65rem] md:text-[.7rem] font-light transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white hover:scale-105 hover:shadow-md">
+                <Mail size={14} className="text-gray-800 dark:text-gray-200" />
+                <span>Send Email</span>
+              </button>
 
-            <button className="flex gap-1 items-center justify-center bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 px-3 py-1.5 md:px-2 md:py-1 rounded-sm text-[.65rem] md:text-[.7rem] font-light transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white hover:scale-105 hover:shadow-md">
-              <Phone size={10} className="text-gray-800 dark:text-gray-200" />
-              <span>Call Me</span>
-            </button>
+              <button className="flex flex-1 md:flex-none gap-1 items-center justify-center whitespace-nowrap bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 px-3 py-1.5 md:px-2 md:py-1 rounded-sm text-[.65rem] md:text-[.7rem] font-light transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white hover:scale-105 hover:shadow-md">
+                <Phone size={14} className="text-gray-800 dark:text-gray-200" />
+                <span>Call Me</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -227,9 +231,9 @@ export default function AboutSection({
       {/* Normal Card */}
       {!showDetails && (
         <motion.div
-          drag
-          dragMomentum={false}
-          dragElastic={0.1}
+          drag={!isMobile} 
+          dragMomentum={!isMobile}
+          dragElastic={!isMobile ? 0.1 : 0}
           onDragStart={() => setActiveCard("about")}
           onDragEnd={() => setActiveCard("")}
           style={{ zIndex: activeCard === "about" ? 50 : 10 }}
@@ -256,7 +260,6 @@ export default function AboutSection({
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
           className="relative w-full md:w-[800px] h-auto text-gray-700 dark:text-gray-300 glass-card overflow-hidden group"
         >
-          <div className="absolute min-w-[6px] h-[6px] top-2 right-2 rounded-full bg-gray-400 dark:bg-gray-600 z-10"></div>
           {cardContent}
         </motion.div>
       )}
@@ -275,7 +278,6 @@ export default function AboutSection({
             style={{ willChange: "transform, opacity" }}
             className="fixed top-1/2 left-1/2 w-[90vw] md:w-[850px] max-w-[850px] max-h-[90vh] glass-card bg-white dark:bg-gray-900 overflow-auto z-70"
           >
-            <div className="absolute min-w-[6px] h-[6px] top-2 right-2 rounded-full bg-gray-400 dark:bg-gray-600 z-10"></div>
             {cardContent}
           </motion.div>
         )}
