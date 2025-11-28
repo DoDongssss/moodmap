@@ -10,11 +10,11 @@ export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [isMobile, setIsMobile] =  useState(window.innerWidth <= 1000);
 
-  // useEffect(() => {
-  //   const handleResize = () => setIsMobile(window.innerWidth < 1000);
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1000);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const checkTheme = () => {
