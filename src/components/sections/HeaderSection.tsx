@@ -83,35 +83,35 @@ export default function HeaderSection({
       icon: Github, 
       name: "GitHub", 
       color: "#181717",
-      href: "https://github.com/yourusername",
+      href: "https://github.com/DoDongssss",
       textWidth: 42
     },
     { 
       icon: Linkedin, 
       name: "LinkedIn", 
       color: "#0A66C2",
-      href: "https://linkedin.com/in/yourusername",
+      href: "https://www.linkedin.com/in/johnny-asumbra-0b8b5a25a/",
       textWidth: 52
     },
     { 
       icon: Mail, 
       name: "Email", 
       color: "#EA4335",
-      href: "mailto:your.email@example.com",
+      href: "mailto:your.dong.asumbra@gmail.com",
       textWidth: 35
     },
     { 
       icon: Facebook, 
       name: "Facebook", 
       color: "#1877F2",
-      href: "https://facebook.com/yourusername",
+      href: "https://www.facebook.com/dong.asumbra/",
       textWidth: 58
     },
     { 
       icon: Instagram, 
       name: "Instagram", 
       color: "#E4405F",
-      href: "https://instagram.com/yourusername",
+      href: "https://www.instagram.com/asumbra_/",
       textWidth: 65
     },
   ];

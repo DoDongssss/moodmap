@@ -4,6 +4,10 @@ import HeaderSection from "../components/sections/HeaderSection";
 import AboutSection from "../components/sections/AboutSection";
 import EducationSection from "../components/sections/EducationSection";
 import ExperienceSection from "../components/sections/ExperienceSection";
+import SkillSection from "../components/sections/SkillSection";
+import ProjectsSection from "../components/sections/ProjectSection";
+import ContactSection from "../components/sections/ContactSection";
+import FreedomWallSection from "../components/sections/FreedomWallSection";
 
 export default function Home() {
   const [activeCard, setActiveCard] = useState('');
@@ -64,7 +68,7 @@ export default function Home() {
         transition={{ duration: 0.7, ease: "easeInOut" }}
       ></motion.div>
 
-      <div className="relative z-10 flex flex-col items-center gap-4 h-full text-white text-4xl font-bold max-w-[800px] mx-auto">
+      <div className="relative z-10 flex flex-col items-center gap-4 h-full text-white text-4xl max-w-[800px] mx-auto">
 
         <motion.div
           className="w-full"
@@ -92,6 +96,42 @@ export default function Home() {
         >
           <EducationSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
           <ExperienceSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
+        </motion.div>
+
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <SkillSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
+        </motion.div>
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <ProjectsSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
+        </motion.div>
+
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <FreedomWallSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
+        </motion.div>
+
+
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <ContactSection activeCard={activeCard} isDark={isDark} isMobile={isMobile}  setActiveCard={setActiveCard} />
         </motion.div>
       </div>
     </motion.div>
