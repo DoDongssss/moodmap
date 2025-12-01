@@ -118,7 +118,7 @@ const StyledWrapper = styled.div<{ $isDark: boolean }>`
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: 'Modak', cursive;
+    font-family: Chokokutai;
   }
 
   .brand-text {

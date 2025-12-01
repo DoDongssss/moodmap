@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Mail, Phone, Circle, ChevronDown, ChevronUp, Braces, Server, Database, GitBranch, Shield, Trello, User, X, Download, ZoomIn, ZoomOut, Maximize2 } from "lucide-react"; 
-import me from "../../assets/me.jpg";
-import avatar from "../../assets/avatar.jpg";
+import me from "../../assets/images/me.webp";
+import avatar from "../../assets/images/avatar.webp";
 
 type AboutSectionProps = {
   activeCard: string;
@@ -175,7 +175,7 @@ export default function AboutSection({
         </div>
       </div>
 
-      <div className="relative h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent my-4 md:my-6"></div>
+      <div className="relative h-px bg-linear-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent my-4 md:my-6"></div>
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
@@ -258,7 +258,7 @@ export default function AboutSection({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
-            className="fixed inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm z-[60]"
+            className="fixed inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm z-60"
             onClick={() => setShowDetails(false)}
           />
         )}
@@ -272,7 +272,7 @@ export default function AboutSection({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[80]"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-80"
               onClick={() => setShowCVModal(false)}
             />
             <motion.div
@@ -280,7 +280,7 @@ export default function AboutSection({
               animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
               exit={{ opacity: 0, scale: 0.95, x: "-50%", y: "-50%" }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-1/2 left-1/2 w-[95vw] h-[90vh] md:w-[90vw] md:h-[85vh] max-w-[1200px] bg-white dark:bg-gray-900 rounded-lg shadow-2xl overflow-hidden z-[90] flex flex-col"
+              className="fixed top-1/2 left-1/2 w-[95vw] h-[90vh] md:w-[90vw] md:h-[85vh] max-w-[1200px] bg-white dark:bg-gray-900 rounded-lg shadow-2xl overflow-hidden z-90 flex flex-col"
             >
               <div className="flex items-center justify-between p-3 md:p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
                 <h3 className="text-sm md:text-base font-semibold text-gray-800 dark:text-gray-100">
@@ -361,8 +361,7 @@ export default function AboutSection({
           whileHover={{
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
-              : "linear-gradient(135deg, #fbf5ea, #f3e4d0, #fbf5ea)",
-            backgroundSize: "300% 300%",
+              : "linear-gradient(135deg, #fbf5ea, #f3e4d0, #fbf5ea)"
           }}  
           whileDrag={{
             scale: 1.05,
@@ -395,7 +394,7 @@ export default function AboutSection({
               ease: [0.16, 1, 0.3, 1],
             }}
             style={{ willChange: "transform, opacity" }}
-            className="fixed top-1/2 left-1/2 w-[90vw] md:w-[850px] max-w-[850px] max-h-[90vh] glass-card bg-white dark:bg-gray-900 overflow-auto z-[70]"
+            className="fixed top-1/2 left-1/2 w-[90vw] md:w-[850px] max-w-[850px] max-h-[90vh] glass-card bg-white dark:bg-gray-900 overflow-auto z-70"
           >
             {cardContent}
           </motion.div>

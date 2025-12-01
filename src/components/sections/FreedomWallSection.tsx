@@ -282,7 +282,7 @@ export default function FreedomWallSection({
           </h2>
         </div>
         
-        <div className="relative h-[450px] md:h-[500px] overflow-hidden">
+        <div className="relative h-[300px] md:h-[500px] overflow-hidden">
           <motion.div
             drag
             dragConstraints={{ top: -1000, left: -1400, right: 100, bottom: 100 }}
@@ -420,7 +420,6 @@ export default function FreedomWallSection({
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
               : "linear-gradient(135deg, #fbf5ea, #f3e4d0, #fbf5ea)",
-            backgroundSize: "300% 300%",
           }}
           whileDrag={{
             scale: 1.05,

@@ -1,6 +1,15 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Image, ChevronDown, ChevronUp, X, Loader2 } from "lucide-react";
+import img1 from '../../assets/images/gallery/1.webp';
+import img2 from '../../assets/images/gallery/2.webp';
+import img9 from '../../assets/images/gallery/9.webp';
+import img4 from '../../assets/images/gallery/4.webp';
+import img5 from '../../assets/images/gallery/5.webp';
+import img10 from '../../assets/images/gallery/10.webp';
+import img7 from '../../assets/images/gallery/7.webp';
+import img6 from '../../assets/images/gallery/6.webp';
+
 
 type GallerySectionProps = {
   activeCard: string;
@@ -21,11 +30,13 @@ interface GalleryImage {
 const LazyImage = ({ 
   src, 
   alt, 
-  className 
+  className,
+  priority = false
 }: { 
   src: string; 
   alt: string; 
   className?: string;
+  priority?: boolean;
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -45,24 +56,27 @@ const LazyImage = ({
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
         className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
         onLoad={() => setIsLoaded(true)}
         onError={() => setIsError(true)}
+        width="400"
+        height="533"
       />
     </div>
   );
 };
 
 const galleryImages: GalleryImage[] = [
-  { id: 1, url: "../images/gallery/1.jpg", alt: "L", rotation: -3, scale: 0.98, zIndex: 1 },
-  { id: 2, url: "../images/gallery/2.jpg", alt: "I", rotation: 4, scale: 1.01, zIndex: 2 },
-  { id: 3, url: "../images/gallery/9.jpg", alt: "V", rotation: -2, scale: 0.97, zIndex: 3 },
-  { id: 4, url: "../images/gallery/4.jpg", alt: "E", rotation: 3, scale: 1, zIndex: 4 },
-  { id: 5, url: "../images/gallery/5.jpg", alt: "L", rotation: -4, scale: 1.02, zIndex: 5 },
-  { id: 6, url: "../images/gallery/10.jpg", alt: "I", rotation: 2, scale: 0.99, zIndex: 6 },
-  { id: 7, url: "../images/gallery/7.jpg", alt: "F", rotation: -3, scale: 0.98, zIndex: 7 },
-  { id: 8, url: "../images/gallery/6.jpg", alt: "E", rotation: 5, scale: 1.01, zIndex: 8 },
+  { id: 1, url: img1, alt: "L", rotation: -3, scale: 0.98, zIndex: 1 },
+  { id: 2, url: img2, alt: "I", rotation: 4, scale: 1.01, zIndex: 2 },
+  { id: 3, url: img9, alt: "V", rotation: -2, scale: 0.97, zIndex: 3 },
+  { id: 4, url: img4, alt: "E", rotation: 3, scale: 1, zIndex: 4 },
+  { id: 5, url: img5, alt: "L", rotation: -4, scale: 1.02, zIndex: 5 },
+  { id: 6, url: img10, alt: "I", rotation: 2, scale: 0.99, zIndex: 6 },
+  { id: 7, url: img7, alt: "F", rotation: -3, scale: 0.98, zIndex: 7 },
+  { id: 8, url: img6, alt: "E", rotation: 5, scale: 1.01, zIndex: 8 },
 ];
 
 const dragStyles = {
@@ -87,6 +101,8 @@ export default function GallerySection({
   const [showDetails, setShowDetails] = useState(false);
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
+  const memoizedImages = useMemo(() => galleryImages, []);
+
   const cardContent = (
     <div className="w-full p-3 md:p-4">
       <div className="flex items-center justify-between mb-4">
@@ -96,7 +112,7 @@ export default function GallerySection({
             Gallery
           </h1>
           <span className="text-[10px] md:text-xs px-2 py-0.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
-            {galleryImages.length} photos
+            {memoizedImages.length} photos
           </span>
         </div>
         <button
@@ -119,7 +135,7 @@ export default function GallerySection({
 
       <div className="relative h-px bg-linear-to-r from-gray-300 dark:from-gray-600 to-transparent mt-3 mb-5"></div>
 
-      <div className="relative min-h-[400px] md:min-h-[450px] bg-linear-to-br from-gray-50 via-gray-100 to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 rounded-xl p-4 md:p-6 overflow-hidden shadow-inner">
+      <div className="relative bg-linear-to-br from-gray-50 via-gray-100 to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 rounded-xl p-4 md:p-6 overflow-hidden shadow-inner">
         <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none">
           <div className="absolute top-8 left-8 w-24 h-24 bg-blue-400 rounded-full blur-3xl"></div>
           <div className="absolute bottom-8 right-8 w-32 h-32 bg-purple-400 rounded-full blur-3xl"></div>
@@ -127,7 +143,7 @@ export default function GallerySection({
         </div>
 
         <div className="relative grid grid-cols-4 gap-2 md:gap-3 lg:gap-4">
-          {galleryImages.map((image, index) => (
+          {memoizedImages.map((image, index) => (
             <motion.div
               key={image.id}
               initial={{ opacity: 0, scale: 0.3, rotate: image.rotation * 2 }}
@@ -166,11 +182,12 @@ export default function GallerySection({
                 className="relative"
               >
                 <div className="bg-white dark:bg-gray-800 p-1.5 md:p-2 shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-sm border border-gray-200 dark:border-gray-700">
-                  <div className="relative aspect-3/4 overflow-hidden rounded-sm bg-gray-100 dark:bg-gray-700">
+                  <div className="relative aspect-3/ overflow-hidden rounded-sm bg-gray-100 dark:bg-gray-700">
                     <LazyImage
                       src={image.url}
                       alt={image.alt}
                       className="w-full h-full object-cover"
+                      priority={index < 3}
                     />
                     <motion.div 
                       className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -302,7 +319,6 @@ export default function GallerySection({
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
               : "linear-gradient(135deg, #fbf5ea, #f3e4d0, #fbf5ea)",
-            backgroundSize: "300% 300%",
           }}
           whileDrag={dragStyles}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
