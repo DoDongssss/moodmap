@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CodeXml, Github, Linkedin, Mail, Facebook, Instagram, Menu, X } from "lucide-react";
-import ThemeToggle from "../ThemeToggle";
+import ThemeToggle from "../ui/ThemeToggle";
 
 type HeaderSectionProps = {
   activeCard: string;
   isDark: boolean;
   isMobile: boolean;
   setActiveCard: (card: string) => void;
+};
+
+type SocialIconProps = {
+  icon: any;
+  name: string;
+  color: string;
+  href: string;
+  textWidth: number;
+  isDark: boolean;
+  showLabel?: boolean;
 };
 
 const SocialIcon = ({ 
@@ -18,17 +28,8 @@ const SocialIcon = ({
   textWidth,
   isDark,
   showLabel = false
-}: { 
-  icon: any; 
-  name: string; 
-  color: string; 
-  href: string;
-  textWidth: number;
-  isDark: boolean;
-  showLabel?: boolean;
-}) => {
+}: SocialIconProps) => {
   const [isHovered, setIsHovered] = useState(false);
-
   const baseColor = isDark ? "#d1d5db" : "#6b7280";
 
   return (
@@ -59,7 +60,7 @@ const SocialIcon = ({
             exit={{ opacity: 0, width: 0, marginLeft: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="text-xs font-medium whitespace-nowrap overflow-hidden"
-            style={{ color: color }}
+            style={{ color }}
           >
             {name}
           </motion.span>
@@ -69,6 +70,43 @@ const SocialIcon = ({
   );
 };
 
+const socialLinks = [
+  { 
+    icon: Github, 
+    name: "GitHub", 
+    color: "#181717",
+    href: "https://github.com/DoDongssss",
+    textWidth: 42
+  },
+  { 
+    icon: Linkedin, 
+    name: "LinkedIn", 
+    color: "#0A66C2",
+    href: "https://www.linkedin.com/in/johnny-asumbra-0b8b5a25a/",
+    textWidth: 52
+  },
+  { 
+    icon: Mail, 
+    name: "Email", 
+    color: "#EA4335",
+    href: "mailto:your.dong.asumbra@gmail.com",
+    textWidth: 35
+  },
+  { 
+    icon: Facebook, 
+    name: "Facebook", 
+    color: "#1877F2",
+    href: "https://www.facebook.com/dong.asumbra/",
+    textWidth: 58
+  },
+  { 
+    icon: Instagram, 
+    name: "Instagram", 
+    color: "#E4405F",
+    href: "https://www.instagram.com/asumbra_/",
+    textWidth: 65
+  },
+];
 
 export default function HeaderSection({
   activeCard,
@@ -78,47 +116,8 @@ export default function HeaderSection({
 }: HeaderSectionProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const socialLinks = [
-    { 
-      icon: Github, 
-      name: "GitHub", 
-      color: "#181717",
-      href: "https://github.com/DoDongssss",
-      textWidth: 42
-    },
-    { 
-      icon: Linkedin, 
-      name: "LinkedIn", 
-      color: "#0A66C2",
-      href: "https://www.linkedin.com/in/johnny-asumbra-0b8b5a25a/",
-      textWidth: 52
-    },
-    { 
-      icon: Mail, 
-      name: "Email", 
-      color: "#EA4335",
-      href: "mailto:your.dong.asumbra@gmail.com",
-      textWidth: 35
-    },
-    { 
-      icon: Facebook, 
-      name: "Facebook", 
-      color: "#1877F2",
-      href: "https://www.facebook.com/dong.asumbra/",
-      textWidth: 58
-    },
-    { 
-      icon: Instagram, 
-      name: "Instagram", 
-      color: "#E4405F",
-      href: "https://www.instagram.com/asumbra_/",
-      textWidth: 65
-    },
-  ];
-
   return (
-    <>
-      {/* Header */}
+    <div className="w-full">
       <motion.div
         drag={!isMobile} 
         dragMomentum={!isMobile}
@@ -133,7 +132,7 @@ export default function HeaderSection({
         onDragStart={() => setActiveCard("header")}
         onDragEnd={() => setActiveCard("")}
         style={{ zIndex: activeCard === "header" ? 50 : 10 }}
-        className="w-full h-[40px] flex items-center justify-between glass-card py-1 px-3"
+        className="relative w-full h-[40px] flex items-center glass-card py-1 px-3"
         whileDrag={{
           scale: 1.05,
           boxShadow: `
@@ -144,19 +143,17 @@ export default function HeaderSection({
           borderRight: "1px solid rgba(0,0,0,0.1)",
           borderBottom: "1px solid rgba(0,0,0,0.1)",
           backdropFilter: "blur(3px)",
-          background: "linear-linear(94deg, rgba(232,232,232,0.3) 0%, rgba(242,228,213,0.3) 76%, rgba(222,222,222,0.3) 101%)",
+          background: "linear-gradient(94deg, rgba(232,232,232,0.3) 0%, rgba(242,228,213,0.3) 76%, rgba(222,222,222,0.3) 101%)",
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       >
-        <motion.div
-          className="text-gray-900 flex items-center dark:text-gray-100 font-bold font-modak gap-1"
-        >
+        <motion.div className="text-gray-900 flex items-center dark:text-gray-100 chokokutai-regular gap-1">
           <motion.h3
             className="text-sm"
             animate={{ y: [0, -1.5, 0] }} 
             transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
           >
-            MoodMap
+            VibeMesh
           </motion.h3>
 
           <motion.div
@@ -167,8 +164,7 @@ export default function HeaderSection({
           </motion.div>
         </motion.div>
   
-        {/* Desktop Social Links - Hidden on mobile */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3 absolute left-1/2 -translate-x-1/2">
           {socialLinks.map((social, index) => (
             <SocialIcon
               key={index}
@@ -182,8 +178,7 @@ export default function HeaderSection({
           ))}
         </div>
 
-        {/* Tablet Social Links - Show only first 3 */}
-        <div className="hidden md:flex lg:hidden items-center gap-3">
+        <div className="hidden md:flex lg:hidden items-center gap-3 absolute left-1/2 -translate-x-1/2">
           {socialLinks.slice(0, 3).map((social, index) => (
             <SocialIcon
               key={index}
@@ -197,29 +192,22 @@ export default function HeaderSection({
           ))}
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ml-auto">
           <ThemeToggle />
           
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-1.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? (
-              <X size={18} strokeWidth={2.5} />
-            ) : (
-              <Menu size={18} strokeWidth={2.5} />
-            )}
+            {mobileMenuOpen ? <X size={18} strokeWidth={2.5} /> : <Menu size={18} strokeWidth={2.5} />}
           </button>
         </div>
       </motion.div>
 
-      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -229,7 +217,6 @@ export default function HeaderSection({
               onClick={() => setMobileMenuOpen(false)}
             />
             
-            {/* Menu Panel */}
             <motion.div
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -265,6 +252,6 @@ export default function HeaderSection({
           </>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
