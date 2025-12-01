@@ -1,15 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
 import Loader from "../components/ui/Loader";
 import HeaderSection from "../components/sections/HeaderSection";
 import AboutSection from "../components/sections/AboutSection";
 import EducationSection from "../components/sections/EducationSection";
 import ExperienceSection from "../components/sections/ExperienceSection";
-import SkillSection from "../components/sections/SkillSection";
-import ProjectsSection from "../components/sections/ProjectSection";
-import ContactSection from "../components/sections/ContactSection";
-import FreedomWallSection from "../components/sections/FreedomWallSection";
-import GallerySection from "../components/sections/GallerySection";
+
+const SkillSection = lazy(() => import("../components/sections/SkillSection"));
+const ProjectsSection = lazy(() => import("../components/sections/ProjectSection"));
+const GallerySection = lazy(() => import("../components/sections/GallerySection"));
+const FreedomWallSection = lazy(() => import("../components/sections/FreedomWallSection"));
+const ContactSection = lazy(() => import("../components/sections/ContactSection"));
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -18,7 +19,11 @@ interface AnimatedSectionProps {
 
 function AnimatedSection({ children, className = "" }: AnimatedSectionProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3, margin: "0px 0px -50px 0px" });
+  const isInView = useInView(ref, { 
+    once: true, 
+    amount: 0.2, 
+    margin: "0px 0px -100px 0px" 
+  });
 
   return (
     <motion.div
@@ -33,16 +38,34 @@ function AnimatedSection({ children, className = "" }: AnimatedSectionProps) {
   );
 }
 
+const SectionFallback = () => (
+  <div className="w-full h-32 flex items-center justify-center">
+    <div className="w-6 h-6 border-2 border-gray-300 dark:border-gray-600 border-t-gray-600 dark:border-t-gray-300 rounded-full animate-spin"></div>
+  </div>
+);
+
 export default function Home() {
   const [activeCard, setActiveCard] = useState('');
-  const [isDark, setIsDark] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000);
+  const [isDark, setIsDark] = useState(() => {
+    return document.documentElement.classList.contains('dark');
+  });
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 1000);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1000);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    let timeoutId: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsMobile(window.innerWidth < 1000);
+      }, 150);
+    };
+
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -50,8 +73,6 @@ export default function Home() {
       setIsDark(document.documentElement.classList.contains('dark'));
     };
     
-    checkTheme();
-
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
@@ -64,7 +85,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -106,42 +127,90 @@ export default function Home() {
         transition={{ duration: 0.7, ease: "easeInOut" }}
       ></motion.div>
 
-      <div className="relative z-10 flex flex-col items-center gap-4 h-full text-white text-4xl max-w-[800px] mx-auto">
+      <div className="relative z-10 flex flex-col items-center gap-4 h-full max-w-[800px] mx-auto">
 
         <AnimatedSection className="w-full">
-          <HeaderSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
+          <HeaderSection 
+            activeCard={activeCard} 
+            isDark={isDark} 
+            isMobile={isMobile} 
+            setActiveCard={setActiveCard} 
+          />
         </AnimatedSection>
 
         <AnimatedSection className="w-full">
-          <AboutSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
+          <AboutSection 
+            activeCard={activeCard} 
+            isDark={isDark} 
+            isMobile={isMobile} 
+            setActiveCard={setActiveCard} 
+          />
         </AnimatedSection>
 
         <AnimatedSection className="w-full">
           <div className="w-full flex flex-col md:flex-row gap-4">
-            <EducationSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
-            <ExperienceSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
+            <EducationSection 
+              activeCard={activeCard} 
+              isDark={isDark} 
+              isMobile={isMobile} 
+              setActiveCard={setActiveCard} 
+            />
+            <ExperienceSection 
+              activeCard={activeCard} 
+              isDark={isDark} 
+              isMobile={isMobile} 
+              setActiveCard={setActiveCard} 
+            />
           </div>
         </AnimatedSection>
 
-        <AnimatedSection className="w-full">
-          <SkillSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
-        </AnimatedSection>
+        <Suspense fallback={<SectionFallback />}>
 
-        <AnimatedSection className="w-full">
-          <ProjectsSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
-        </AnimatedSection>
+          <AnimatedSection className="w-full">
+            <SkillSection 
+              activeCard={activeCard} 
+              isDark={isDark} 
+              isMobile={isMobile} 
+              setActiveCard={setActiveCard} 
+            />
+          </AnimatedSection>
 
-        <AnimatedSection className="w-full">
-          <GallerySection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
-        </AnimatedSection>
+          <AnimatedSection className="w-full">
+            <ProjectsSection 
+              activeCard={activeCard} 
+              isDark={isDark} 
+              isMobile={isMobile} 
+              setActiveCard={setActiveCard} 
+            />
+          </AnimatedSection>
 
-        <AnimatedSection className="w-full">
-          <FreedomWallSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
-        </AnimatedSection>
+          <AnimatedSection className="w-full">
+            <GallerySection 
+              activeCard={activeCard} 
+              isDark={isDark} 
+              isMobile={isMobile} 
+              setActiveCard={setActiveCard} 
+            />
+          </AnimatedSection>
 
-        <AnimatedSection className="w-full">
-          <ContactSection activeCard={activeCard} isDark={isDark} isMobile={isMobile} setActiveCard={setActiveCard} />
-        </AnimatedSection>
+          <AnimatedSection className="w-full">
+            <FreedomWallSection 
+              activeCard={activeCard} 
+              isDark={isDark} 
+              isMobile={isMobile} 
+              setActiveCard={setActiveCard} 
+            />
+          </AnimatedSection>
+
+          <AnimatedSection className="w-full">
+            <ContactSection 
+              activeCard={activeCard} 
+              isDark={isDark} 
+              isMobile={isMobile} 
+              setActiveCard={setActiveCard} 
+            />
+          </AnimatedSection>
+        </Suspense>
       </div>
     </motion.div>
   );
