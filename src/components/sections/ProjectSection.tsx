@@ -213,12 +213,12 @@ export default function ProjectsSection({
   const projects: Project[] = [
     {
       id: "1",
-      title: "MoodMap",
+      title: "VibeMesh",
       subtitle: "Personal Portfolio Website",
       description:
         "This is my personal portfolio, it contains my information about skills, experience and projects. Built with modern web technologies for optimal performance and user experience.",
       technologies: ["React", "TypeScript", "HTML", "TailWindCSS", "Firebase"],
-      liveUrl: "https://moodmap-chi.vercel.app/",
+      liveUrl: "https://vibemesh-chi.vercel.app/",
       githubUrl: "https://github.com/DoDongssss/moodmap",
       year: "2024",
       image: "/images/portfolio.jpg",
@@ -376,7 +376,6 @@ export default function ProjectsSection({
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
               : "linear-gradient(135deg, #fbf5ea, #f3e4d0, #fbf5ea)",
             backgroundSize: "300% 300%",
-            scale: 1.01,
           }}
           whileDrag={dragStyles}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}

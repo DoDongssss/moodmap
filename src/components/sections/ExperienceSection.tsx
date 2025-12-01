@@ -328,7 +328,6 @@ export default function ExperienceSection({
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
               : "linear-gradient(135deg, #fbf5ea, #f3e4d0, #fbf5ea)",
             backgroundSize: "300% 300%",
-            scale: 1.01,
           }}
           whileDrag={dragStyles}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
