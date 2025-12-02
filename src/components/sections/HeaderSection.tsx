@@ -4,10 +4,7 @@ import { CodeXml, Github, Linkedin, Mail, Facebook, Instagram, Menu, X } from "l
 import ThemeToggle from "../ui/ThemeToggle";
 
 type HeaderSectionProps = {
-  activeCard: string;
   isDark: boolean;
-  isMobile: boolean;
-  setActiveCard: (card: string) => void;
 };
 
 type SocialIconProps = {
@@ -109,28 +106,18 @@ const socialLinks = [
 ];
 
 export default function HeaderSection({
-  activeCard,
   isDark,
-  isMobile,
-  setActiveCard,
 }: HeaderSectionProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="w-full">
       <motion.div
-        drag={!isMobile} 
-        dragMomentum={!isMobile}
-        dragElastic={!isMobile ? 0.1 : 0}
         whileHover={{
           background: isDark
             ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
             : "linear-gradient(135deg, #fbf5ea, #f3e4d0, #fbf5ea)",
-          scale: 1.01,
         }}      
-        onDragStart={() => setActiveCard("header")}
-        onDragEnd={() => setActiveCard("")}
-        style={{ zIndex: activeCard === "header" ? 50 : 10 }}
         className="relative w-full h-[40px] flex items-center glass-card py-1 px-3"
         whileDrag={{
           scale: 1.05,

@@ -5,17 +5,11 @@ import me from "../../assets/images/me.webp";
 import avatar from "../../assets/images/avatar.webp";
 
 type AboutSectionProps = {
-  activeCard: string;
   isDark: boolean;
-  isMobile: boolean;
-  setActiveCard: (card: string) => void;
 };
 
 export default function AboutSection({
-  activeCard,
   isDark,
-  isMobile,
-  setActiveCard,
 }: AboutSectionProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -96,6 +90,10 @@ export default function AboutSection({
               initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               exit={{ opacity: 0, scale: 1.05, rotate: 2 }}
+              loading="eager"
+              decoding="async"
+              width={400}
+              height={400}
               transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
               className="absolute inset-0 h-full w-full object-cover rounded-md"
             />
@@ -352,12 +350,6 @@ export default function AboutSection({
 
       {!showDetails && (
         <motion.div
-          drag={!isMobile} 
-          dragMomentum={!isMobile}
-          dragElastic={!isMobile ? 0.1 : 0}
-          onDragStart={() => setActiveCard("about")}
-          onDragEnd={() => setActiveCard("")}
-          style={{ zIndex: activeCard === "about" ? 50 : 10 }}
           whileHover={{
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
