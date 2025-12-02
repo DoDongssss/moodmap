@@ -25,10 +25,7 @@ import wordpressIcon from "../../assets/icons/wordpress.svg";
 import vscodeIcon from "../../assets/icons/vscode.svg";
 
 type SkillsSectionProps = {
-  activeCard: string;
   isDark: boolean;
-  isMobile: boolean;
-  setActiveCard: (card: string) => void;
 };
 
 interface Skill {
@@ -60,32 +57,56 @@ const SkillCard = memo(({
     >
       <div className="relative p-2 md:p-2.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300">
         <div className="flex items-center justify-center mb-1.5">
-          <motion.div
-            animate={isHovered ? {
-              scale: 1.2,
-              rotate: 10,
-              y: -3,
-            } : {
-              scale: 1,
-              rotate: 0,
-              y: 0,
-            }}
-            transition={{ 
-              duration: 0.3,
-              ease: "easeInOut"
-            }}
+        <motion.div
+            animate={
+              isHovered 
+                ? {
+                    scale: 1.2,
+                    rotate: [0, -5, 5, -5, 0],
+                    y: -3,
+                  }
+                : {
+                    y: [0, -4, 0],
+                  }
+            }
+            transition={
+              isHovered
+                ? {
+                    duration: 0.5,
+                    ease: "easeInOut",
+                  }
+                : {
+                    y: {
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.1,
+                    }
+                  }
+            }
             className="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center"
           >
             {!imageLoaded && (
               <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
             )}
-            <img 
+            <motion.img 
               src={skill.iconUrl} 
               alt={`${skill.name} icon`}
-              className={`w-full h-full object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity`}
+              className={`w-full h-full object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
               loading="lazy"
               decoding="async"
               onLoad={() => setImageLoaded(true)}
+              animate={imageLoaded && !isHovered ? {
+                scale: [1, 1.05, 1],
+              } : {}}
+              transition={{
+                scale: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.15,
+                }
+              }}
             />
           </motion.div>
         </div>
@@ -112,10 +133,7 @@ const SkillCard = memo(({
 SkillCard.displayName = 'SkillCard';
 
 export default function SkillSection({
-  activeCard,
   isDark,
-  isMobile,
-  setActiveCard,
 }: SkillsSectionProps) {
   const [showDetails, setShowDetails] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -265,12 +283,6 @@ export default function SkillSection({
 
       {!showDetails && (
         <motion.div
-          drag={!isMobile}
-          dragMomentum={!isMobile}
-          dragElastic={!isMobile ? 0.1 : 0}
-          onDragStart={() => setActiveCard("skills")}
-          onDragEnd={() => setActiveCard("")}
-          style={{ zIndex: activeCard === "skills" ? 50 : 10 }}
           whileHover={{
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"

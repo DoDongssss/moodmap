@@ -12,10 +12,7 @@ import img6 from '../../assets/images/gallery/6.webp';
 
 
 type GallerySectionProps = {
-  activeCard: string;
   isDark: boolean;
-  isMobile: boolean;
-  setActiveCard: (card: string) => void;
 };
 
 interface GalleryImage {
@@ -93,10 +90,7 @@ const dragStyles = {
 };
 
 export default function GallerySection({
-  activeCard,
   isDark,
-  isMobile,
-  setActiveCard,
 }: GallerySectionProps) {
   const [showDetails, setShowDetails] = useState(false);
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -309,12 +303,6 @@ export default function GallerySection({
 
       {!showDetails && (
         <motion.div
-          drag={!isMobile}
-          dragMomentum={!isMobile}
-          dragElastic={!isMobile ? 0.1 : 0}
-          onDragStart={() => setActiveCard("gallery")}
-          onDragEnd={() => setActiveCard("")}
-          style={{ zIndex: activeCard === "gallery" ? 50 : 10 }}
           whileHover={{
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
@@ -335,8 +323,7 @@ export default function GallerySection({
             animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
             exit={{ opacity: 0, scale: 0.95, x: "-50%", y: "-45%" }}
             transition={{
-              duration: 0.3,
-              ease: [0.16, 1, 0.3, 1],
+              type: "spring", stiffness: 300, damping: 25
             }}
             style={{ willChange: "transform, opacity" }}
             className="fixed top-1/2 left-1/2 w-[90vw] md:w-[850px] max-w-[850px] max-h-[90vh] glass-card bg-white dark:bg-gray-900 overflow-auto z-70"

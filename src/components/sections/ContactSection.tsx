@@ -20,10 +20,7 @@ import emailjs from '@emailjs/browser';
 import { useRecaptcha } from '../../hooks/useRecaptcha';
 
 type ContactSectionProps = {
-  activeCard: string;
   isDark: boolean;
-  isMobile: boolean;
-  setActiveCard: (card: string) => void;
 };
 
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
@@ -72,10 +69,7 @@ const dragStyles = {
 };
 
 export default function ContactSection({
-  activeCard,
   isDark,
-  isMobile,
-  setActiveCard,
 }: ContactSectionProps) {
   const [showDetails, setShowDetails] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -167,7 +161,7 @@ export default function ContactSection({
         </button>
       </div>
 
-      <div className="relative h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent mb-6"></div>
+      <div className="relative h-px bg-linear-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent mb-6"></div>
 
       <div className="grid md:grid-cols-5 gap-4 md:gap-5">
         <div className="md:col-span-2 space-y-3 md:space-y-4">
@@ -241,7 +235,7 @@ export default function ContactSection({
                 exit={{ opacity: 0, y: -10 }}
                 className="flex items-center gap-1.5 md:gap-2 p-2 md:p-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800"
               >
-                <CheckCircle2 size={14} className="md:w-4 md:h-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+                <CheckCircle2 size={14} className="md:w-4 md:h-4 text-green-600 dark:text-green-400 shrink-0" />
                 <p className="text-[10px] md:text-xs text-green-700 dark:text-green-300 font-medium">
                   Message sent successfully! I'll get back to you soon.
                 </p>
@@ -255,7 +249,7 @@ export default function ContactSection({
                 exit={{ opacity: 0, y: -10 }}
                 className="flex items-center gap-1.5 md:gap-2 p-2 md:p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
               >
-                <AlertCircle size={14} className="md:w-4 md:h-4 text-red-600 dark:text-red-400 flex-shrink-0" />
+                <AlertCircle size={14} className="md:w-4 md:h-4 text-red-600 dark:text-red-400 shrink-0" />
                 <p className="text-[10px] md:text-xs text-red-700 dark:text-red-300 font-medium">
                   {errorMessage}
                 </p>
@@ -362,12 +356,6 @@ export default function ContactSection({
 
       {!showDetails && (
         <motion.div
-          drag={!isMobile}
-          dragMomentum={!isMobile}
-          dragElastic={!isMobile ? 0.1 : 0}
-          onDragStart={() => setActiveCard("contact")}
-          onDragEnd={() => setActiveCard("")}
-          style={{ zIndex: activeCard === "contact" ? 50 : 10 }}
           whileHover={{
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"

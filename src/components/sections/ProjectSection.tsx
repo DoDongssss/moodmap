@@ -3,10 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FolderGit2, ChevronDown, ChevronUp, ExternalLink, Github } from "lucide-react";
 
 type ProjectsSectionProps = {
-  activeCard: string;
   isDark: boolean;
   isMobile: boolean;
-  setActiveCard: (card: string) => void;
 };
 
 interface Project {
@@ -203,10 +201,8 @@ const ProjectCard = ({
 };
 
 export default function ProjectsSection({
-  activeCard,
   isDark,
   isMobile,
-  setActiveCard,
 }: ProjectsSectionProps) {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -365,12 +361,6 @@ export default function ProjectsSection({
 
       {!showDetails && (
         <motion.div
-          drag={!isMobile}
-          dragMomentum={!isMobile}
-          dragElastic={!isMobile ? 0.1 : 0}
-          onDragStart={() => setActiveCard("projects")}
-          onDragEnd={() => setActiveCard("")}
-          style={{ zIndex: activeCard === "projects" ? 50 : 10 }}
           whileHover={{
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"

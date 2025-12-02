@@ -14,10 +14,7 @@ import {
 import { db } from "../../firebase/config";
 
 type FreedomWallProps = {
-  activeCard: string;
   isDark: boolean;
-  isMobile: boolean;
-  setActiveCard: (card: string) => void;
 };
 
 interface Post {
@@ -35,10 +32,7 @@ interface Post {
 }
 
 export default function FreedomWallSection({
-  activeCard,
   isDark,
-  isMobile,
-  setActiveCard,
 }: FreedomWallProps) {
   const [showDetails, setShowDetails] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
@@ -410,12 +404,6 @@ export default function FreedomWallSection({
 
       {!showDetails && (
         <motion.div
-          drag={!isMobile}
-          dragMomentum={!isMobile}
-          dragElastic={!isMobile ? 0.1 : 0}
-          onDragStart={() => setActiveCard("freedom")}
-          onDragEnd={() => setActiveCard("")}
-          style={{ zIndex: activeCard === "freedom" ? 50 : 10 }}
           whileHover={{
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"

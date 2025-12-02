@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
+import { debounce, rafThrottle } from '../utils/performanceOptimizations';
 import Loader from "../components/ui/Loader";
 import HeaderSection from "../components/sections/HeaderSection";
 import AboutSection from "../components/sections/AboutSection";
@@ -11,6 +12,7 @@ const ProjectsSection = lazy(() => import("../components/sections/ProjectSection
 const GallerySection = lazy(() => import("../components/sections/GallerySection"));
 const FreedomWallSection = lazy(() => import("../components/sections/FreedomWallSection"));
 const ContactSection = lazy(() => import("../components/sections/ContactSection"));
+const BackTotop = lazy(() => import('../components/ui/BackToTop'))
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -45,7 +47,6 @@ const SectionFallback = () => (
 );
 
 export default function Home() {
-  const [activeCard, setActiveCard] = useState('');
   const [isDark, setIsDark] = useState(() => {
     return document.documentElement.classList.contains('dark');
   });
@@ -53,25 +54,22 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    const handleResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
+    const handleResize = debounce(() => {
+      rafThrottle(() => {
         setIsMobile(window.innerWidth < 1000);
-      }, 150);
-    };
+      })();
+    }, 150);
 
     window.addEventListener("resize", handleResize, { passive: true });
     return () => {
-      clearTimeout(timeoutId);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   useEffect(() => {
-    const checkTheme = () => {
+    const checkTheme = rafThrottle(() => {
       setIsDark(document.documentElement.classList.contains('dark'));
-    };
+    });
     
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
@@ -106,7 +104,7 @@ export default function Home() {
     >
       <div
         className="absolute inset-0 rounded-[inherit]
-                   bg-[url('./assets/home_background.png')]
+                   bg-[url('./assets/images/home_background.webp')]
                    bg-repeat bg-position-[center_top]
                    bg-size-[648px_auto]
                    border-0 opacity-100"
@@ -114,7 +112,7 @@ export default function Home() {
 
       <motion.div
         className="absolute inset-0 rounded-[inherit]
-                   bg-[url('./assets/home_background.png')]
+                   bg-[url('./assets/images/home_background.webp')]
                    bg-repeat bg-position-[center_top]
                    bg-size-[648px_auto]
                    border-0 opacity-100"
@@ -131,35 +129,23 @@ export default function Home() {
 
         <AnimatedSection className="w-full">
           <HeaderSection 
-            activeCard={activeCard} 
             isDark={isDark} 
-            isMobile={isMobile} 
-            setActiveCard={setActiveCard} 
           />
         </AnimatedSection>
 
         <AnimatedSection className="w-full">
           <AboutSection 
-            activeCard={activeCard} 
             isDark={isDark} 
-            isMobile={isMobile} 
-            setActiveCard={setActiveCard} 
           />
         </AnimatedSection>
 
         <AnimatedSection className="w-full">
           <div className="w-full flex flex-col md:flex-row gap-4">
             <EducationSection 
-              activeCard={activeCard} 
               isDark={isDark} 
-              isMobile={isMobile} 
-              setActiveCard={setActiveCard} 
             />
             <ExperienceSection 
-              activeCard={activeCard} 
               isDark={isDark} 
-              isMobile={isMobile} 
-              setActiveCard={setActiveCard} 
             />
           </div>
         </AnimatedSection>
@@ -168,48 +154,37 @@ export default function Home() {
 
           <AnimatedSection className="w-full">
             <SkillSection 
-              activeCard={activeCard} 
               isDark={isDark} 
-              isMobile={isMobile} 
-              setActiveCard={setActiveCard} 
             />
           </AnimatedSection>
 
           <AnimatedSection className="w-full">
             <ProjectsSection 
-              activeCard={activeCard} 
-              isDark={isDark} 
-              isMobile={isMobile} 
-              setActiveCard={setActiveCard} 
+              isDark={isDark}
+              isMobile={isMobile}  
             />
           </AnimatedSection>
 
           <AnimatedSection className="w-full">
             <GallerySection 
-              activeCard={activeCard} 
               isDark={isDark} 
-              isMobile={isMobile} 
-              setActiveCard={setActiveCard} 
             />
           </AnimatedSection>
 
           <AnimatedSection className="w-full">
             <FreedomWallSection 
-              activeCard={activeCard} 
               isDark={isDark} 
-              isMobile={isMobile} 
-              setActiveCard={setActiveCard} 
             />
           </AnimatedSection>
 
           <AnimatedSection className="w-full">
             <ContactSection 
-              activeCard={activeCard} 
               isDark={isDark} 
-              isMobile={isMobile} 
-              setActiveCard={setActiveCard} 
             />
           </AnimatedSection>
+
+
+          <BackTotop/>
         </Suspense>
       </div>
     </motion.div>

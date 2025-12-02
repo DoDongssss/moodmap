@@ -25,17 +25,11 @@ const dragStyles = {
 };
 
 type EducationSectionProps = {
-  activeCard: string;
   isDark: boolean;
-  isMobile: boolean;
-  setActiveCard: (value: string) => void;
 };
 
 export default function EducationSection({
-  activeCard,
   isDark,
-  isMobile,
-  setActiveCard,
 }: EducationSectionProps) {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -251,12 +245,6 @@ export default function EducationSection({
       {/* Normal Card */}
       {!showDetails && (
         <motion.div
-          drag={!isMobile} 
-          dragMomentum={!isMobile}
-          dragElastic={!isMobile ? 0.1 : 0}
-          onDragStart={() => setActiveCard("education")}
-          onDragEnd={() => setActiveCard("")}
-          style={{ zIndex: activeCard === "education" ? 50 : 10 }}
           whileHover={{
             background: isDark
               ? "linear-gradient(135deg, #1c1c1c, #2a2a2a, #1c1c1c)"
