@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CodeXml, Github, Linkedin, Mail, Facebook, Instagram, Menu, X } from "lucide-react";
+import { Github, Linkedin, Mail, Facebook, Instagram, Menu, X } from "lucide-react";
 import ThemeToggle from "../ui/ThemeToggle";
 
 import logo from "../../assets/images/logo.webp"
