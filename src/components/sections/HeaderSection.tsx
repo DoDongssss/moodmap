@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CodeXml, Github, Linkedin, Mail, Facebook, Instagram, Menu, X } from "lucide-react";
+import { Github, Linkedin, Mail, Facebook, Instagram, Menu, X } from "lucide-react";
 import ThemeToggle from "../ui/ThemeToggle";
+
+import logo from "../../assets/images/logo.webp"
 
 type HeaderSectionProps = {
   isDark: boolean;
@@ -133,21 +135,26 @@ export default function HeaderSection({
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       >
-        <motion.div className="text-gray-900 flex items-center dark:text-gray-100 chokokutai-regular gap-1">
-          <motion.h3
-            className="text-sm"
-            animate={{ y: [0, -1.5, 0] }} 
-            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            VibeMesh
-          </motion.h3>
-
-          <motion.div
+        <motion.div className="text-gray-900 flex items-center dark:text-gray-100 gap-1">
+        <motion.div
+          className="flex items-center"
+          animate={{ y: [0, -6, 0] }} // slightly larger for visibility
+          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <img
+            src={logo}
+            alt="Logo"
+            loading="eager"
+            decoding="async"
+            className="w-9"
+          />
+        </motion.div>
+          {/* <motion.div
             animate={{ y: [0, -2, 0], rotate: [0, 5, -5, 0] }} 
             transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
           >
             <CodeXml size={17} strokeWidth={3} />
-          </motion.div>
+          </motion.div> */}
         </motion.div>
   
         <div className="hidden lg:flex items-center gap-3 absolute left-1/2 -translate-x-1/2">

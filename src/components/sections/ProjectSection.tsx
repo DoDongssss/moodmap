@@ -1,6 +1,18 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FolderGit2, ChevronDown, ChevronUp, ExternalLink, Github } from "lucide-react";
+import { FolderGit2, ChevronDown, ChevronUp, ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
+
+import portfolio_1 from "../../assets/images/projects/portfolio/1.jpg"
+import portfolio_2 from "../../assets/images/projects/portfolio/2.jpg"
+import portfolio_3 from "../../assets/images/projects/portfolio/3.jpg"
+
+import pageant_1 from "../../assets/images/projects/pageant-tabulation/1.jpg"
+import pageant_2 from "../../assets/images/projects/pageant-tabulation/2.jpg"
+import pageant_3 from "../../assets/images/projects/pageant-tabulation/3.jpg"
+
+import research_1 from "../../assets/images/projects/research-tabulation/1.jpg"
+import research_2 from "../../assets/images/projects/research-tabulation/2.jpg"
+import research_3 from "../../assets/images/projects/research-tabulation/3.jpg"
 
 type ProjectsSectionProps = {
   isDark: boolean;
@@ -15,8 +27,7 @@ interface Project {
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
-  year: string;
-  image: string;
+  images: string[];
   color: string;
   darkColor: string;
 }
@@ -31,7 +42,7 @@ const dragStyles = {
   borderRight: "1px solid rgba(0,0,0,0.1)",
   borderBottom: "1px solid rgba(0,0,0,0.1)",
   backdropFilter: "blur(3px)",
-  background: "linear-linear(94deg, rgba(232,232,232,0.3) 0%, rgba(242,228,213,0.3) 76%, rgba(222,222,222,0.3) 101%)",
+  background: "linear-gradient(94deg, rgba(232,232,232,0.3) 0%, rgba(242,228,213,0.3) 76%, rgba(222,222,222,0.3) 101%)",
 };
 
 const ProjectCard = ({
@@ -44,7 +55,18 @@ const ProjectCard = ({
   isDark: boolean;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const isReversed = index % 2 === 1;
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
+  };
 
   return (
     <motion.div
@@ -58,25 +80,61 @@ const ProjectCard = ({
       <div className="relative rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden">
         <div className={`flex flex-col md:flex-row ${isReversed ? "md:flex-row-reverse" : ""}`}>
           
-          <div className="relative w-full md:w-2/5 h-[180px] md:h-[200px] overflow-hidden bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+          <div className="relative w-full md:w-auto overflow-hidden bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
             <motion.div
-              animate={{ scale: isHovered ? 1.05 : 1 }}
-              transition={{ duration: 0.4 }}
-              className="w-full h-full flex items-center justify-center p-4"
+              key={currentImageIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="w-full flex items-center justify-center p-3 "
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="h-full w-full object-contain"
+              <motion.img
+                src={project.images[currentImageIndex]}
+                alt={`${project.title} - Image ${currentImageIndex + 1}`}
+                animate={{ scale: isHovered ? 1.05 : 1 }}
+                transition={{ duration: 0.4 }}
+                className="h-[150px] rounded-lg w-auto object-contain"
               />
             </motion.div>
 
-            <div
-              className="absolute top-3 right-3 px-2.5 py-1 rounded-md text-[10px] font-bold bg-white dark:bg-gray-900 shadow-sm"
-              style={{ color: isDark ? project.darkColor : project.color }}
-            >
-              {project.year}
+            {/* Image Navigation Dots */}
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1.5 z-10">
+              {project.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentImageIndex(idx);
+                  }}
+                  className={`w-1.5 h-1.5 rounded-full transition-all ${
+                    idx === currentImageIndex
+                      ? "bg-white w-4"
+                      : "bg-white/50 hover:bg-white/75"
+                  }`}
+                  aria-label={`View image ${idx + 1}`}
+                />
+              ))}
             </div>
+
+            {/* Image Navigation Arrows */}
+            {project.images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImage}
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 p-1.5 bg-white/80 dark:bg-gray-800/80 rounded-full shadow-md hover:bg-white dark:hover:bg-gray-800 transition-all opacity-0 group-hover:opacity-100"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft size={16} className="text-gray-800 dark:text-gray-200" />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 bg-white/80 dark:bg-gray-800/80 rounded-full shadow-md hover:bg-white dark:hover:bg-gray-800 transition-all opacity-0 group-hover:opacity-100"
+                  aria-label="Next image"
+                >
+                  <ChevronRight size={16} className="text-gray-800 dark:text-gray-200" />
+                </button>
+              </>
+            )}
 
             <AnimatePresence>
               {isHovered && (
@@ -128,7 +186,7 @@ const ProjectCard = ({
             </AnimatePresence>
           </div>
 
-          <div className="w-full md:w-3/5 p-4 md:p-5 flex flex-col justify-center">
+          <div className="w-full md:flex-1 p-4 md:p-6 flex flex-col justify-center">
             <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-gray-100 leading-tight mb-1">
               {project.title}
             </h3>
@@ -140,7 +198,7 @@ const ProjectCard = ({
               {project.subtitle}
             </p>
 
-            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-3 leading-relaxed line-clamp-3">
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-3 leading-relaxed line-clamp-2">
               {project.description}
             </p>
 
@@ -148,42 +206,11 @@ const ProjectCard = ({
               {project.technologies.map((tech, i) => (
                 <span
                   key={i}
-                  className="px-2 py-1 font-medium bg-gray-100 dark:bg-gray-700 text-[10px] md:text-xs text-gray-700 dark:text-gray-300 rounded"
+                  className="px-2 py-1 font-medium bg-gray-100 dark:bg-gray-700 text-[9px] text-gray-700 dark:text-gray-300 rounded"
                 >
                   {tech}
                 </span>
               ))}
-            </div>
-
-            <div className="flex gap-2 pt-2 border-t border-gray-100 dark:border-gray-700">
-              {project.liveUrl && (
-                <motion.a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs md:text-sm font-medium rounded-lg text-white shadow-sm transition-all"
-                  style={{ backgroundColor: isDark ? project.darkColor : project.color }}
-                >
-                  <ExternalLink size={14} />
-                  <span>View Live</span>
-                </motion.a>
-              )}
-
-              {project.githubUrl && (
-                <motion.a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="px-3 py-2 text-xs md:text-sm font-medium rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all flex items-center gap-1.5"
-                >
-                  <Github size={14} />
-                  <span>Code</span>
-                </motion.a>
-              )}
             </div>
           </div>
         </div>
@@ -201,8 +228,8 @@ const ProjectCard = ({
 };
 
 export default function ProjectsSection({
-  isDark,
-  isMobile,
+  isDark = false,
+  isMobile = false,
 }: ProjectsSectionProps) {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -213,61 +240,67 @@ export default function ProjectsSection({
       subtitle: "Personal Portfolio Website",
       description:
         "This is my personal portfolio, it contains my information about skills, experience and projects. Built with modern web technologies for optimal performance and user experience.",
-      technologies: ["React", "TypeScript", "HTML", "TailWindCSS", "Firebase"],
+      technologies: ["React", "TypeScript", "HTML", "TailwindCSS", "Firebase", "EmailJS", "reCaptchaV3"],
       liveUrl: "https://vibemesh-chi.vercel.app/",
       githubUrl: "https://github.com/DoDongssss/moodmap",
-      year: "2024",
-      image: "/images/portfolio.jpg",
+      images: [
+        portfolio_1,
+        portfolio_2,
+        portfolio_3,
+      ],
       color: "#14B8A6",
       darkColor: "#5EEAD4",
     },
-
     {
       id: "2",
       title: "Pageant Tabulation System",
-      subtitle: "T’nalak Festival Judging System",
+      subtitle: "Lakambini ng Koronadal Tabulation",
       description:
-        "A fast and accurate tabulation system built for the T’nalak Festival Pageant. Supports multiple judges, real-time scoring, automated ranking, and a clean, mobile-ready interface. Built for reliability during major events.",
-      technologies: ["Vue", "Laravel", "TailwindCSS", "MySQL"],
-      liveUrl: "",
-      githubUrl: "",
-      year: "2024",
-      image: "/images/portfolio.jpg",
+        "A fast and accurate tabulation system built for the Lakambini ng Koronadal. Supports multiple judges, real-time scoring and automated ranking.",
+      technologies: ["Vue", "ElementPlus", "DaisyUI", "Laravel", "TailwindCSS", "MySQL"],
+      liveUrl: "https://vibemesh-chi.vercel.app/",
+      githubUrl: "https://github.com/DoDongssss/lakor-pageant-tabulation.git",
+      images: [
+        pageant_1,
+        pageant_2,
+        pageant_3,
+      ],
       color: "#8B5CF6",
       darkColor: "#A78BFA",
     },
-
     {
       id: "3",
       title: "Research Contest Tabulation",
       subtitle: "DepEd Academic Scoring System",
       description:
-        "A tabulation system built for the DepEd Research Competition. Features category-based scoring, weighted criteria, multiple evaluators, and real-time score auditing to ensure fairness and transparency.",
-      technologies: ["Vue", "Laravel", "TailwindCSS", "MySQL"],
-      liveUrl: "",
-      githubUrl: "",
-      year: "2024",
-      image: "/images/portfolio.jpg",
+        "A tabulation system built for the DepEd Research Competition. Features category-based scoring, weighted criteria, multiple evaluators, and real-time score auditing.",
+      technologies: ["React", "TypeScript", "Laravel", "TailwindCSS", "MySQL"],
+      githubUrl: "https://github.com/DoDongssss/deped-research-tabulation.git",
+      images: [
+        research_3,
+        research_2,
+        research_1,
+      ],
       color: "#EC4899",
       darkColor: "#F472B6",
     },
-
     {
       id: "4",
       title: "POS & Inventory System",
       subtitle: "Retail Store Inventory + Sales",
       description:
-        "A complete POS and inventory management system for BJS Store. Handles product tracking, stock adjustments, sales monitoring, and receipt generation. Built for speed and daily operational use.",
-      technologies: ["Vue", "Laravel", "TailwindCSS", "MySQL"],
-      liveUrl: "",
-      githubUrl: "",
-      year: "2024",
-      image: "/images/portfolio.jpg",
+        "A complete POS and inventory management system for BJS Store. Handles product tracking, stock adjustments, sales monitoring, and receipt generation.",
+      technologies: ["Vue", "Laravel", "TailwindCSS", "MySQL", "ElementPlus", "DaisyUI"],
+      githubUrl: "https://github.com/DoDongssss/deped-research-tabulation.git",
+      images: [
+        portfolio_1,
+        portfolio_2,
+        portfolio_3,
+      ],
       color: "#22C55E",
       darkColor: "#4ADE80",
     },
   ];
-  
 
   const displayedProjects = isMobile && !showDetails ? [projects[0]] : projects;
 
@@ -334,7 +367,7 @@ export default function ProjectsSection({
           >
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
               <p className="text-xs md:text-sm font-light leading-relaxed text-gray-600 dark:text-gray-400">
-                Each project showcases my ability to transform ideas into functional, beautiful applications. I focus on clean code, modern best practices, and creating exceptional user experiences. Hover over project images to quickly access live demos and source code.
+                Each project showcases my ability to transform ideas into functional, beautiful applications. I focus on clean code, modern best practices, and creating exceptional user experiences. Hover over project images to source code.
               </p>
             </div>
           </motion.div>
@@ -353,7 +386,7 @@ export default function ProjectsSection({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
-            className="fixed inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm z-60"
+            className="fixed inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm z-40"
             onClick={() => setShowDetails(false)}
           />
         )}
@@ -368,7 +401,7 @@ export default function ProjectsSection({
           }}
           whileDrag={dragStyles}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="relative w-full md:w-[800px] h-auto text-gray-700 dark:text-gray-300 glass-card overflow-hidden group"
+          className="relative w-full md:w-[800px] h-auto rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg overflow-hidden group"
         >
           {cardContent}
         </motion.div>
@@ -385,7 +418,7 @@ export default function ProjectsSection({
               ease: [0.16, 1, 0.3, 1],
             }}
             style={{ willChange: "transform, opacity" }}
-            className="fixed top-1/2 left-1/2 w-[90vw] md:w-[900px] max-w-[900px] max-h-[90vh] glass-card bg-white dark:bg-gray-900 overflow-auto z-70"
+            className="fixed top-1/2 left-1/2 w-[90vw] md:w-[900px] max-w-[900px] max-h-[90vh] rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-2xl overflow-auto z-50"
           >
             {cardContent}
           </motion.div>

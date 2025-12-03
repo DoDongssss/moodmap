@@ -16,7 +16,7 @@ export default function AboutSection({
   const [showCVModal, setShowCVModal] = useState(false);
   const [pdfZoom, setPdfZoom] = useState(100);
 
-  const CV_GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/18QWxUnskOEKvlW7hvqjEAuKWpmP4vKUY";
+  const CV_GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/1BmYFITUXABJUJuj0nTNvApOKOqDdog9o";
   const EMAIL = "your.dong.asumbra@gmail.com";
   const PHONE = "+639123456789";
 

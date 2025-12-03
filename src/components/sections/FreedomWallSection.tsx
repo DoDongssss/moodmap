@@ -341,7 +341,6 @@ export default function FreedomWallSection({
                       className="text-gray-900 dark:text-gray-100 leading-relaxed mb-2"
                       style={{
                         fontSize: `${position.fontSize}px`,
-                        fontFamily: "'Indie Flower', 'Comic Sans MS', cursive",
                         fontWeight: 400,
                         wordBreak: 'break-word',
                         overflowWrap: 'break-word'
@@ -355,7 +354,6 @@ export default function FreedomWallSection({
                         className="text-gray-700 dark:text-gray-300 font-semibold"
                         style={{
                           fontSize: `${position.fontSize - 1}px`,
-                          fontFamily: "'Indie Flower', 'Comic Sans MS', cursive"
                         }}
                       >
                         - {post.name}
