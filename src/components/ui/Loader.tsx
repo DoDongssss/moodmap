@@ -58,7 +58,7 @@ const Loader = () => {
       <div className="loader-container">
         <div className="brand-section">
           <div className="brand-name">
-            <span className="brand-text chokokutai-regular">VibeMesh</span>
+            <span className="brand-text">VibeMesh</span>
             <CodeXml className="brand-icon" size={24} strokeWidth={3} />
           </div>
           <div className="tagline">Johnny Asumbra Portfolio</div>
