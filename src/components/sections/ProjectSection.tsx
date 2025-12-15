@@ -258,7 +258,7 @@ export default function ProjectsSection({
       description:
         "A fast and accurate tabulation system built for the Lakambini ng Koronadal. Supports multiple judges, real-time scoring and automated ranking.",
       technologies: ["Vue", "ElementPlus", "DaisyUI", "Laravel", "TailwindCSS", "MySQL"],
-      liveUrl: "https://vibemesh-chi.vercel.app/",
+      liveUrl: "",
       githubUrl: "https://github.com/DoDongssss/lakor-pageant-tabulation.git",
       images: [
         pageant_1,
@@ -291,7 +291,7 @@ export default function ProjectsSection({
       description:
         "A complete POS and inventory management system for BJS Store. Handles product tracking, stock adjustments, sales monitoring, and receipt generation.",
       technologies: ["Vue", "Laravel", "TailwindCSS", "MySQL", "ElementPlus", "DaisyUI"],
-      githubUrl: "https://github.com/DoDongssss/deped-research-tabulation.git",
+      githubUrl: "",
       images: [
         portfolio_1,
         portfolio_2,
