@@ -83,7 +83,7 @@ export default function ExperienceSection({
           <div className="relative">
             <div className="ml-2 flex flex-col gap-0.5">
               <div className="flex items-center justify-between flex-wrap gap-1">
-                <h2 className="text-xs md:text-sm font-semibold text-gray-800 dark:text-gray-200">Full Stack Developer</h2>
+                <h2 className="text-xs md:text-sm font-semibold text-gray-800 dark:text-gray-200">Full Stack Web Developer</h2>
                 <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-[9px] md:text-[10px] font-medium rounded-full">
                   Full-time
                 </span>

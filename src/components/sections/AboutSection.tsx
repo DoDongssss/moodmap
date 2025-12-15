@@ -139,7 +139,7 @@ export default function AboutSection({
           
           <div className="flex items-center justify-center md:justify-start gap-2 mt-1 md:mt-3">
             <span className="text-sm md:text-base font-semibold text-gray-800 dark:text-gray-200">
-              Full Stack Developer
+              Full Web Stack Developer
             </span>
           </div>
           
@@ -201,7 +201,7 @@ export default function AboutSection({
         
         <p className="text-xs md:text-sm font-light leading-relaxed text-gray-600 dark:text-gray-400">
           Welcome to my portfolio! I'm a{" "}
-          <span className="font-semibold text-gray-700 dark:text-gray-300">Full Stack Developer</span>{" "}
+          <span className="font-semibold text-gray-700 dark:text-gray-300">Full Stack Web Developer</span>{" "}
           fluent in React, Vue, and Laravel, with over{" "}
           <span className="font-semibold text-gray-700 dark:text-gray-300">
             2 years of professional experience
