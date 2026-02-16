@@ -14,6 +14,10 @@ import research_1 from "../../assets/images/projects/research-tabulation/1.jpg"
 import research_2 from "../../assets/images/projects/research-tabulation/2.jpg"
 import research_3 from "../../assets/images/projects/research-tabulation/3.jpg"
 
+import pos_1 from "../../assets/images/projects/pos-inventory/1.jpg"
+import pos_2 from "../../assets/images/projects/pos-inventory/2.jpg"
+import pos_3 from "../../assets/images/projects/pos-inventory/3.jpg"
+
 type ProjectsSectionProps = {
   isDark: boolean;
   isMobile: boolean;
@@ -293,9 +297,9 @@ export default function ProjectsSection({
       technologies: ["Vue", "Laravel", "TailwindCSS", "MySQL", "ElementPlus", "DaisyUI"],
       githubUrl: "",
       images: [
-        portfolio_1,
-        portfolio_2,
-        portfolio_3,
+        pos_3,
+        pos_2,
+        pos_1,
       ],
       color: "#22C55E",
       darkColor: "#4ADE80",
