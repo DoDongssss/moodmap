@@ -14,6 +14,10 @@ import research_1 from "../../assets/images/projects/research-tabulation/1.jpg"
 import research_2 from "../../assets/images/projects/research-tabulation/2.jpg"
 import research_3 from "../../assets/images/projects/research-tabulation/3.jpg"
 
+import pos_1 from "../../assets/images/projects/pos-inventory/1.jpg"
+import pos_2 from "../../assets/images/projects/pos-inventory/2.jpg"
+import pos_3 from "../../assets/images/projects/pos-inventory/3.jpg"
+
 type ProjectsSectionProps = {
   isDark: boolean;
   isMobile: boolean;
@@ -258,7 +262,7 @@ export default function ProjectsSection({
       description:
         "A fast and accurate tabulation system built for the Lakambini ng Koronadal. Supports multiple judges, real-time scoring and automated ranking.",
       technologies: ["Vue", "ElementPlus", "DaisyUI", "Laravel", "TailwindCSS", "MySQL"],
-      liveUrl: "https://vibemesh-chi.vercel.app/",
+      liveUrl: "",
       githubUrl: "https://github.com/DoDongssss/lakor-pageant-tabulation.git",
       images: [
         pageant_1,
@@ -291,11 +295,11 @@ export default function ProjectsSection({
       description:
         "A complete POS and inventory management system for BJS Store. Handles product tracking, stock adjustments, sales monitoring, and receipt generation.",
       technologies: ["Vue", "Laravel", "TailwindCSS", "MySQL", "ElementPlus", "DaisyUI"],
-      githubUrl: "https://github.com/DoDongssss/deped-research-tabulation.git",
+      githubUrl: "",
       images: [
-        portfolio_1,
-        portfolio_2,
-        portfolio_3,
+        pos_3,
+        pos_2,
+        pos_1,
       ],
       color: "#22C55E",
       darkColor: "#4ADE80",
